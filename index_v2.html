@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erich Keller AG</title>
+<style>
+@font-face {
+  font-family: 'Beausite Classic';
+  src: url('/Users/ddrive/Downloads/OnlineWebFonts_COM_963056d767fd8fd794d851cc62cff9bc/Beausite Classic Regular/Web Fonts/81db551dd19e720ed0bc40dbde312130.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Beausite Classic', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: #fff; color: #000;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+button { border: none; background: none; cursor: pointer; font: inherit; }
+ul, ol { list-style: none; }
+
+/* ── ARROW ── */
+.arr {
+  display: inline-block; width: 10px; height: 10px; flex-shrink: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M0 5h7M5 1.5l3.5 3.5L5 8.5' stroke='black' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size: contain; background-repeat: no-repeat; background-position: center;
+}
+.arr--w {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M0 5h7M5 1.5l3.5 3.5L5 8.5' stroke='white' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.arr--diag {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 17'%3E%3Cpath d='M2 15L15 2M15 2H5M15 2v10' stroke='black' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  width: 17px; height: 17px;
+}
+.chev { width: 10px; height: 6px; display: inline-block; flex-shrink: 0; transition: transform .2s; }
+.chev--up { transform: rotate(180deg); }
+
+/* ── NAV BAR ── */
+#nav-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 40px;
+}
+#nav-bar.hidden { visibility: hidden; }
+.nav-logo { cursor: pointer; flex-shrink: 0; }
+.nav-logo img { height: 42px; width: auto; }
+.nav-left  { display: flex; align-items: center; gap: 0; flex: 1; }
+.nav-items { display: flex; align-items: center; gap: 0; margin-left: 32px; }
+.nav-btn {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 16px; color: #fff; line-height: 1.5; white-space: nowrap;
+  background: none; border: none; font-family: inherit; cursor: pointer;
+  padding: 4px 16px 4px 0;
+}
+.nav-btn span.label { border-bottom: 1px solid transparent; }
+.nav-btn.active span.label { border-bottom-color: #fff; }
+
+/* ── FLYOUT OVERLAY ── */
+#flyout-overlay {
+  display: none; position: fixed; inset: 0; z-index: 200;
+  background: #000; flex-direction: column;
+}
+#flyout-overlay.open { display: flex; }
+#fnav-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 40px; flex-shrink: 0;
+}
+.fnav-logo { cursor: pointer; flex-shrink: 0; }
+.fnav-logo img { height: 42px; width: auto; }
+.fnav-left  { display: flex; align-items: center; gap: 0; flex: 1; }
+.fnav-items { display: flex; align-items: center; gap: 0; margin-left: 32px; }
+.fnav-btn {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 16px; color: #fff; line-height: 1.5; white-space: nowrap;
+  background: none; border: none; font-family: inherit; cursor: pointer;
+  padding: 4px 16px 4px 0;
+}
+.fnav-btn span.label { border-bottom: 1px solid transparent; }
+.fnav-btn.active span.label { border-bottom-color: #fff; }
+#flyout-body {
+  flex: 1; display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 40px 40px; overflow: hidden;
+}
+.fp { display: none; flex-direction: column; }
+.fp.active { display: flex; }
+.fp-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 8px; padding-bottom: 40px; }
+.fp-col-4 { grid-column: span 4; display: flex; flex-direction: column; padding-right: 40px; }
+.fp-col-3 { grid-column: span 3; display: flex; flex-direction: column; padding-right: 32px; }
+.fp-title { font-size: 48px; color: #fff; line-height: 1.1; margin-bottom: 24px; }
+.fp-desc  { font-size: 16px; color: rgba(255,255,255,.7); line-height: 1.5; margin-bottom: 20px; }
+.fp-overview { display: flex; align-items: center; gap: 10px; font-size: 16px; color: #fff; line-height: 1.5; background: none; border: none; font-family: inherit; cursor: pointer; text-align: left; padding: 0; transition: opacity .15s; }
+.fp-overview:hover { opacity: .6; }
+.fp-divider { border: none; border-top: 1px solid rgba(255,255,255,.25); margin: 20px 0 24px; }
+.fp-links { display: flex; flex-direction: column; gap: 20px; }
+.fp-link { display: flex; align-items: flex-start; gap: 10px; font-size: 16px; color: #fff; line-height: 1.5; background: none; border: none; font-family: inherit; cursor: pointer; text-align: left; padding: 0; transition: opacity .15s; }
+.fp-link:hover { opacity: .6; }
+.fp-bottom { display: flex; justify-content: flex-end; align-items: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.2); }
+.fp-bottom-link { display: flex; align-items: center; gap: 10px; font-size: 16px; color: #fff; background: none; border: none; font-family: inherit; cursor: pointer; transition: opacity .15s; }
+.fp-bottom-link:hover { opacity: .6; }
+
+/* ── HERO ── */
+.hero { position: relative; min-height: 800px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 32px; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; overflow: hidden; }
+.hero-bg img { position: absolute; width: 100%; height: 116.36%; top: -8.18%; left: 0; object-fit: cover; max-width: none; }
+.hero-desat { position: absolute; inset: 0; background: white; mix-blend-mode: saturation; pointer-events: none; }
+.hero-inner { position: relative; z-index: 1; width: 100%; max-width: 1600px; display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); padding: 0 40px; }
+.hero-title-cell { grid-column: 1 / span 9; padding: 8px 0; }
+.hero-title { font-size: 80px; color: #fff; line-height: 1.1; }
+.hero-ref-cell { grid-column: 10 / span 3; display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end; padding-bottom: 20px; padding-top: 16px; }
+.hero-ref { display: flex; align-items: center; gap: 14px; color: #fff; font-size: 18px; line-height: 1.5; cursor: pointer; transition: opacity .15s; }
+.hero-ref:hover { opacity: .65; }
+
+/* ── BREADCRUMB ── */
+.bc-wrap { max-width: 1290px; margin: 0 auto; padding: 16px 40px; }
+.bc { display: flex; align-items: center; gap: 16px; font-size: 18px; color: #000; line-height: 1.5; }
+.bc-sep { display: flex; align-items: center; gap: 14px; }
+
+/* ── MAIN INTRO ── */
+.intro-wrap { max-width: 1290px; margin: 0 auto; }
+.intro-sec { height: 600px; }
+.intro-grid { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 8px; padding: 0 40px; padding-top: 400px; height: 100%; }
+.intro-text-cell { grid-column: 1 / span 9; }
+.intro-text { font-size: 32px; color: #000; line-height: 1.2; max-width: 870px; height: 170px; display: flex; align-items: flex-end; }
+.intro-cta-cell { grid-column: 10 / span 3; display: flex; align-items: flex-end; justify-content: flex-end; height: 170px; padding-bottom: 8px; }
+.intro-cta { display: flex; align-items: center; gap: 14px; font-size: 18px; color: #000; cursor: pointer; transition: opacity .15s; }
+.intro-cta:hover { opacity: .65; }
+
+/* ── TABS ── */
+.tabs-wrap { max-width: 1290px; margin: 0 auto; border-bottom: 1px solid rgba(0,0,0,.1); }
+.tabs-inner { padding: 40px 40px 41px; }
+.tabs-row { display: flex; align-items: flex-end; gap: 64px; }
+.tab-btn { font-size: 18px; color: rgba(0,0,0,.4); line-height: 1.5; background: none; border: none; font-family: inherit; cursor: pointer; padding-bottom: 18px; border-bottom: 2px solid transparent; transition: color .15s; white-space: nowrap; }
+.tab-btn.active { color: #000; border-bottom-color: #000; }
+.tab-btn:hover { color: rgba(0,0,0,.7); }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+
+/* ── CONTENT SECTION ── */
+.cs-wrap { max-width: 1290px; margin: 0 auto; height: 840px; position: relative; }
+.cs-grid { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 8px; padding: 40px 40px 0; height: 100%; }
+.cs-text { grid-column: 1 / span 4; display: flex; flex-direction: column; align-items: flex-start; }
+.cs-h2 { font-size: 48px; color: #000; line-height: 1.2; margin-bottom: 40px; }
+.cs-body { font-size: 24px; color: #000; line-height: 1.4; margin-bottom: 40px; }
+.cs-link { display: flex; align-items: center; gap: 12px; font-size: 16px; color: #000; cursor: pointer; transition: opacity .15s; }
+.cs-link:hover { opacity: .65; }
+.cs-img-tall { grid-column: 10 / span 3; align-self: flex-start; }
+.cs-img-wide { grid-column: 5 / span 4; align-self: flex-end; }
+.fig-img { position: relative; overflow: hidden; }
+.fig-img img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; max-width: none; }
+.fig-img .desat { position: absolute; inset: 0; background: white; mix-blend-mode: saturation; pointer-events: none; }
+
+/* ── SECTION BLOCK ── */
+.sb { max-width: 1290px; margin: 0 auto; padding: 160px 40px; }
+.sb-h2 { font-size: 48px; color: #000; line-height: 1.2; margin-bottom: 112px; }
+
+/* ── GRIDS ── */
+.g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; row-gap: 32px; }
+.g2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; }
+.g2c { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.card { display: flex; flex-direction: column; gap: 8px; }
+.card-img { background: #d0cecc; overflow: hidden; position: relative; }
+.card-img img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; max-width: none; }
+.card-img .desat { position: absolute; inset: 0; background: white; mix-blend-mode: saturation; pointer-events: none; }
+.card-sq { aspect-ratio: 1/1; }
+.card-link { display: flex; align-items: center; gap: 14px; font-size: 16px; color: #000; cursor: pointer; transition: opacity .15s; }
+.card-link:hover { opacity: .65; }
+.card-link--lg { font-size: 18px; }
+.card-date { font-size: 18px; color: #000; line-height: 1.5; }
+.card-headline { font-size: 40px; color: #000; line-height: 1.2; }
+
+/* ── JOBS ── */
+.jobs-sec { max-width: 1290px; margin: 0 auto; padding: 160px 0; }
+.jobs-grid { display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); gap: 8px; padding: 0 40px; }
+.jobs-hd { grid-column: 1 / span 4; }
+.jobs-hd-title { font-size: 48px; color: #000; line-height: 1.2; margin-bottom: 40px; }
+.jobs-list { grid-column: 2 / span 10; }
+.job-row { display: flex; align-items: center; justify-content: space-between; padding: 36px 0; border-bottom: 1px solid rgba(0,0,0,.25); cursor: pointer; transition: opacity .15s; }
+.job-row:hover { opacity: .65; }
+.job-title { font-size: 32px; color: #000; line-height: 1.2; }
+.jobs-all { grid-column: 11 / span 2; display: flex; align-items: center; gap: 14px; justify-content: flex-end; padding-top: 32px; font-size: 18px; color: #000; cursor: pointer; }
+
+/* ── SLIDER ── */
+.slider-sec { max-width: 1290px; margin: 0 auto; }
+.slider-grid { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); grid-template-rows: 700px; gap: 8px; padding: 160px 40px; }
+.slider-main { grid-column: 1 / span 8; position: relative; overflow: hidden; }
+.slider-main img { position: absolute; width: 100%; height: 113.9%; top: -6.95%; left: 0; object-fit: cover; max-width: none; }
+.slider-main .desat { position: absolute; inset: 0; background: white; mix-blend-mode: saturation; pointer-events: none; }
+.slider-side { grid-column: 9 / span 4; display: flex; flex-direction: column; justify-content: space-between; height: 377px; }
+.slider-side-img { height: 320px; position: relative; overflow: hidden; }
+.slider-side-img img { position: absolute; width: 100%; height: 123.33%; top: -11.67%; left: 0; object-fit: cover; max-width: none; }
+.slider-side-img .desat { position: absolute; inset: 0; background: white; mix-blend-mode: saturation; pointer-events: none; }
+.slider-pg { display: flex; align-items: center; justify-content: flex-end; gap: 32px; padding-top: 47px; font-size: 18px; }
+.slider-pg-btn { cursor: pointer; }
+
+/* ── FOOTER ── */
+.ft { max-width: 1290px; margin: 0 auto; padding: 128px 40px 64px; display: flex; flex-direction: column; gap: 128px; }
+.ft-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.ft-logo img { height: 37px; width: auto; }
+.ft-cta-area { display: flex; flex-direction: column; gap: 40px; align-items: flex-end; }
+.ft-btn { display: flex; align-items: center; gap: 12px; background: #000; color: #fff; padding: 20px 40px; font-size: 16px; font-family: inherit; cursor: pointer; transition: opacity .15s; }
+.ft-btn:hover { opacity: .8; }
+.ft-contact { text-align: right; font-size: 24px; color: #000; line-height: 1.4; }
+.ft-links { display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); gap: 8px; }
+.ft-col { display: flex; flex-direction: column; gap: 16px; padding-bottom: 80px; }
+.ft-col-label { font-size: 12px; color: #000; line-height: 1.5; }
+.ft-col-link { font-size: 16px; color: rgba(0,0,0,.4); line-height: 1.5; cursor: pointer; transition: color .15s; }
+.ft-col-link:hover { color: rgba(0,0,0,.8); }
+.ft-c1 { grid-column: 1 / span 3; }
+.ft-c2 { grid-column: 4 / span 3; }
+.ft-c3 { grid-column: 7 / span 3; padding-bottom: 40px; }
+.ft-c4 { grid-column: 10 / span 3; }
+.ft-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 49px; border-top: 1px solid rgba(0,0,0,.1); }
+.ft-legal { display: flex; gap: 32px; }
+.ft-legal a, .ft-copy { font-size: 14px; color: rgba(0,0,0,.3); line-height: 1.5; cursor: pointer; }
+
+/* ── TIMELINE ── */
+.tl { display: flex; flex-direction: column; }
+.tl-item { display: flex; gap: 40px; padding: 40px 0; border-bottom: 1px solid rgba(0,0,0,.1); }
+.tl-year { font-size: 18px; color: rgba(0,0,0,.3); min-width: 80px; padding-top: 4px; }
+.tl-title { font-size: 24px; color: #000; line-height: 1.3; margin-bottom: 8px; }
+.tl-desc { font-size: 16px; color: rgba(0,0,0,.5); line-height: 1.6; }
+
+/* ── TEAM ── */
+.team-g { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-top: 80px; }
+.team-img { background: #d0cecc; aspect-ratio: 3/4; overflow: hidden; position: relative; }
+.team-img img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; max-width: none; }
+.team-img .desat { position: absolute; inset: 0; background: white; mix-blend-mode: saturation; pointer-events: none; }
+.team-name { font-size: 18px; color: #000; margin-top: 12px; }
+.team-role { font-size: 14px; color: rgba(0,0,0,.4); }
+
+/* ── LOCATIONS ── */
+.locs-g { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 80px; }
+.loc-card { display: flex; flex-direction: column; gap: 8px; padding: 32px 0; border-top: 1px solid rgba(0,0,0,.1); }
+.loc-name { font-size: 24px; color: #000; }
+.loc-addr { font-size: 16px; color: rgba(0,0,0,.4); line-height: 1.6; }
+
+/* ── STATS ── */
+.stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; padding: 80px 0; }
+.stat-num { font-size: 72px; color: #000; line-height: 1; }
+.stat-lbl { font-size: 18px; color: rgba(0,0,0,.5); line-height: 1.4; margin-top: 8px; }
+
+/* ── SUSTAIN ── */
+.sustain-g { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: start; }
+.sustain-txt { display: flex; flex-direction: column; gap: 24px; }
+.badge { display: inline-flex; align-items: center; gap: 12px; border: 1px solid rgba(0,0,0,.2); padding: 12px 20px; font-size: 14px; color: #000; margin-top: 16px; }
+</style>
+</head>
+<body>
+
+<!-- NAV BAR -->
+<div id="nav-bar">
+  <div class="nav-left">
+    <div class="nav-logo" onclick="go('home')"><img src="Logos/EK_Logo_32.png" alt="EK"></div>
+    <div class="nav-items">
+      <button class="nav-btn" id="nb-interior" onclick="toggleFlyout('interior')">
+        <span class="label">Interior Solutions</span>
+        <svg class="chev" viewBox="0 0 10 6" fill="none"><path d="M0.8 0.8L5 5L9.2 0.8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="nav-btn" id="nb-climate" onclick="toggleFlyout('climate')">
+        <span class="label">Climate Control Systems</span>
+        <svg class="chev" viewBox="0 0 10 6" fill="none"><path d="M0.8 0.8L5 5L9.2 0.8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+  <button class="nav-btn" id="nb-about" onclick="toggleFlyout('about')">
+    <span class="label">About EK</span>
+    <svg class="chev" viewBox="0 0 10 6" fill="none"><path d="M0.8 0.8L5 5L9.2 0.8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
+<!-- FLYOUT OVERLAY -->
+<div id="flyout-overlay">
+  <div id="fnav-row">
+    <div class="fnav-left">
+      <div class="fnav-logo" onclick="closeFlyout();go('home')"><img src="Logos/EK_Logo_32.png" alt="EK"></div>
+      <div class="fnav-items">
+        <button class="fnav-btn" id="fn-interior" onclick="switchFP('interior')">
+          <span class="label">Interior Solutions</span>
+          <svg class="chev" viewBox="0 0 10 6" fill="none"><path d="M0.8 0.8L5 5L9.2 0.8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="fnav-btn" id="fn-climate" onclick="switchFP('climate')">
+          <span class="label">Climate Control Systems</span>
+          <svg class="chev" viewBox="0 0 10 6" fill="none"><path d="M0.8 0.8L5 5L9.2 0.8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+    <button class="fnav-btn" id="fn-about" onclick="switchFP('about')">
+      <span class="label">About EK</span>
+      <svg class="chev" viewBox="0 0 10 6" fill="none"><path d="M0.8 0.8L5 5L9.2 0.8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+  <div id="flyout-body">
+
+    <!-- INTERIOR SOLUTIONS flyout -->
+    <div class="fp" id="fp-interior">
+      <div class="fp-grid">
+        <div class="fp-col-4">
+          <div class="fp-title">Full-Service Interior Solutions</div>
+          <div class="fp-desc">Full-Service Interior Design from Planning and project management to Production and manufacturing to Delivery and installation all in one.</div>
+          <button class="fp-overview" onclick="closeFlyout();go('interior-full')"><span class="arr arr--w"></span> Overview</button>
+          <hr class="fp-divider">
+          <div class="fp-links">
+            <button class="fp-link" onclick="closeFlyout();goTab('interior-full','tg-if',0,'tp-if-office','Office and Conference Spaces','Office and Conference Spaces','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Office and Conference Spaces</button>
+            <button class="fp-link" onclick="closeFlyout();goTab('interior-full','tg-if',1,'tp-if-retail','Retail Spaces','Retail Spaces','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Retail Spaces</button>
+            <button class="fp-link" onclick="closeFlyout();goTab('interior-full','tg-if',2,'tp-if-private','Private Spaces','Private Spaces','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Private Spaces</button>
+          </div>
+        </div>
+        <div class="fp-col-4">
+          <div class="fp-title">Comm &amp; Control Desks</div>
+          <div class="fp-desc">High-end Communication desk solutions for the most demanding business requirements and work spaces.</div>
+          <button class="fp-overview" onclick="closeFlyout();go('comm-desks')"><span class="arr arr--w"></span> Overview</button>
+          <hr class="fp-divider">
+          <div class="fp-links">
+            <button class="fp-link" onclick="closeFlyout();goTab('comm-desks','tg-cd',0,'tp-cd-trading','Trading Floors &amp; Financial Workstations','Trading Floors &amp; Financial Workstations','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Trading Floors &amp; Financial Workstations</button>
+            <button class="fp-link" onclick="closeFlyout();goTab('comm-desks','tg-cd',1,'tp-cd-control','Control Rooms &amp; Dispatch Centres','Control Rooms &amp; Dispatch Centres','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Control Rooms &amp; Dispatch Centres</button>
+            <button class="fp-link" onclick="closeFlyout();goTab('comm-desks','tg-cd',2,'tp-cd-broadcast','Broadcast &amp; Studio Workstations','Broadcast &amp; Studio Workstations','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Broadcast &amp; Studio Workstations</button>
+          </div>
+        </div>
+        <div class="fp-col-4">
+          <div class="fp-title">Room-in-Room &amp; Meeting Pods</div>
+          <div class="fp-desc">Ready to use Room-in-Room and Meeting Pods for flexible, healthy and more productive work environments.</div>
+          <button class="fp-overview" onclick="closeFlyout();go('talky')"><span class="arr arr--w"></span> Overview</button>
+          <hr class="fp-divider">
+          <div class="fp-links">
+            <button class="fp-link" onclick="closeFlyout();goTab('talky','tg-ty',0,'tp-ty-talky','Talky','Talky','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Talky</button>
+            <button class="fp-link" onclick="closeFlyout();goTab('talky','tg-ty',1,'tp-ty-nook','Talky Nook','Talky Nook','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Talky Nook</button>
+            <button class="fp-link" onclick="closeFlyout();goTab('talky','tg-ty',2,'tp-ty-family','Talky Village','Talky Village','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Talky Village</button>
+            <button class="fp-link" onclick="closeFlyout();goTab('talky','tg-ty',2,'tp-ty-family','Talky AddOns','Talky AddOns','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Talky AddOns</button>
+          </div>
+        </div>
+      </div>
+      <div class="fp-bottom">
+        <button class="fp-bottom-link" onclick="closeFlyout();go('interior-solutions')"><span class="arr arr--w"></span> Interior Solutions Overview</button>
+      </div>
+    </div>
+
+    <!-- CLIMATE CONTROL flyout -->
+    <div class="fp" id="fp-climate">
+      <div class="fp-grid">
+        <div class="fp-col-3">
+          <div class="fp-title">Overall Building Climate Solutions</div>
+          <div class="fp-desc">Climate Solutions for your entire building.</div>
+          <button class="fp-overview" onclick="closeFlyout();go('climate-building')"><span class="arr arr--w"></span> Overview</button>
+          <hr class="fp-divider">
+          <div class="fp-links">
+            <button class="fp-link" onclick="closeFlyout();go('climate-building-rio-therm')"><span class="arr arr--w"></span> Rio-Therm</button>
+            <button class="fp-link" onclick="closeFlyout();go('climate-building-concept')"><span class="arr arr--w"></span> Overall Concept</button>
+          </div>
+        </div>
+        <div class="fp-col-3">
+          <div class="fp-title">Room and Floor Climate Solutions</div>
+          <div class="fp-desc">Climate Solutions for your offices and work spaces.</div>
+          <button class="fp-overview" onclick="closeFlyout();go('climate-room')"><span class="arr arr--w"></span> Overview</button>
+          <hr class="fp-divider">
+          <div class="fp-links">
+            <button class="fp-link" onclick="closeFlyout();go('climate-room-connector-fan')"><span class="arr arr--w"></span> Connector Fan</button>
+          </div>
+        </div>
+        <div class="fp-col-3">
+          <div class="fp-title">Work-Station Climate Solutions</div>
+          <div class="fp-desc">Climate Solutions for your work stations.</div>
+          <button class="fp-overview" onclick="closeFlyout();go('climate-workstation')"><span class="arr arr--w"></span> Overview</button>
+          <hr class="fp-divider">
+          <div class="fp-links">
+            <button class="fp-link" onclick="closeFlyout();go('climate-workstation-cool-top')"><span class="arr arr--w"></span> Cool-Top</button>
+            <button class="fp-link" onclick="closeFlyout();go('climate-workstation-steri-pac')"><span class="arr arr--w"></span> Steri-Pac</button>
+          </div>
+        </div>
+        <div class="fp-col-3">
+          <div class="fp-title">Server Room Climate Solutions</div>
+          <div class="fp-desc">Climate Solutions for your server rooms and infrastructure.</div>
+          <button class="fp-overview" onclick="closeFlyout();go('climate-server')"><span class="arr arr--w"></span> Overview</button>
+          <hr class="fp-divider">
+          <div class="fp-links">
+            <button class="fp-link" onclick="closeFlyout();go('climate-server-top-rack')"><span class="arr arr--w"></span> Top Rack</button>
+            <button class="fp-link" onclick="closeFlyout();go('climate-server-top-cooler')"><span class="arr arr--w"></span> Top-Cooler</button>
+          </div>
+        </div>
+      </div>
+      <div class="fp-bottom">
+        <button class="fp-bottom-link" onclick="closeFlyout();go('climate-control')"><span class="arr arr--w"></span> Climate Control Systems Overview</button>
+      </div>
+    </div>
+
+    <!-- ABOUT EK flyout -->
+    <div class="fp" id="fp-about">
+      <div class="fp-grid">
+        <div class="fp-col-4">
+          <div class="fp-title">Inside Erich Keller</div>
+          <div class="fp-desc">75+ years of interior design and technological innovation.</div>
+          <button class="fp-overview" onclick="closeFlyout();go('about')"><span class="arr arr--w"></span> Overview</button>
+          <hr class="fp-divider">
+          <div class="fp-links">
+            <button class="fp-link" onclick="closeFlyout();go('about-profile')"><span class="arr arr--w"></span> Profile</button>
+            <button class="fp-link" onclick="closeFlyout();go('about-history')"><span class="arr arr--w"></span> History</button>
+            <button class="fp-link" onclick="closeFlyout();go('about-team')"><span class="arr arr--w"></span> Team</button>
+            <button class="fp-link" onclick="closeFlyout();go('about-careers')"><span class="arr arr--w"></span> Careers</button>
+            <button class="fp-link" onclick="closeFlyout();go('about-sustainability')"><span class="arr arr--w"></span> Sustainability</button>
+            <button class="fp-link" onclick="closeFlyout();go('about-locations')"><span class="arr arr--w"></span> Locations &amp; Contact</button>
+          </div>
+        </div>
+      </div>
+      <div class="fp-bottom">
+        <button class="fp-bottom-link" onclick="closeFlyout();go('about')"><span class="arr arr--w"></span> Inside Erich Keller Overview</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="main"></div>
+
+<script>
+// ── FIGMA ASSETS (valid 7 days from 2026-03-23) ──
+const FIG = {
+  heroHome:     'https://www.figma.com/api/mcp/asset/d8649345-d76a-4b76-a4bc-dff936ce6b5e',
+  heroSection:  'https://www.figma.com/api/mcp/asset/e451fd91-e1a7-4e75-99ef-07c9cc861e5a',
+  sliderMain:   'https://www.figma.com/api/mcp/asset/57c70118-f8f7-4300-9461-46bd2ffb9825',
+  sliderThumb:  'https://www.figma.com/api/mcp/asset/a39e7ccd-4dec-43fa-bba6-971b19ac5613',
+  newsCard:     'https://www.figma.com/api/mcp/asset/7d4acc28-846f-4aed-b129-35b066b6bb44',
+  csImgTall:    'https://www.figma.com/api/mcp/asset/4c990a30-02cf-48ab-83b2-abf59bcba2fd',
+  csImgWide:    'https://www.figma.com/api/mcp/asset/8e7ece2e-7f57-41c8-a62e-bd650c221bce',
+  casesImg:     'https://www.figma.com/api/mcp/asset/ed36fd5f-bc89-4af2-a6a0-e115acbe2fd9',
+};
+
+const LOGO_MARK = 'Logos/EK_Logo_32.png';
+const LOGO_FULL = 'Logos/EK_Logo_Full_black.png';
+
+// ── NAV LOGIC ──
+let openFP = null;
+
+function setActiveBtn(name) {
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.remove('active');
+    b.querySelector('.chev').classList.remove('chev--up');
+  });
+  document.querySelectorAll('.fnav-btn').forEach(b => {
+    b.classList.remove('active');
+    b.querySelector('.chev').classList.remove('chev--up');
+  });
+  if (name) {
+    const nb = document.getElementById('nb-' + name);
+    if (nb) { nb.classList.add('active'); const nc = nb.querySelector('.chev'); if (nc) nc.classList.add('chev--up'); }
+    const fn = document.getElementById('fn-' + name);
+    if (fn) { fn.classList.add('active'); const fc = fn.querySelector('.chev'); if (fc) fc.classList.add('chev--up'); }
+  }
+}
+
+function toggleFlyout(name) {
+  if (openFP === name) { closeFlyout(); return; }
+  openFP = name;
+  document.querySelectorAll('.fp').forEach(p => p.classList.remove('active'));
+  document.getElementById('fp-' + name).classList.add('active');
+  setActiveBtn(name);
+  document.getElementById('flyout-overlay').classList.add('open');
+  document.getElementById('nav-bar').classList.add('hidden');
+}
+
+function switchFP(name) {
+  if (openFP === name) { closeFlyout(); return; }
+  openFP = name;
+  document.querySelectorAll('.fp').forEach(p => p.classList.remove('active'));
+  document.getElementById('fp-' + name).classList.add('active');
+  setActiveBtn(name);
+}
+
+function closeFlyout() {
+  openFP = null;
+  document.getElementById('flyout-overlay').classList.remove('open');
+  document.getElementById('nav-bar').classList.remove('hidden');
+  setActiveBtn(null);
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFlyout(); });
+
+// ── TABS ──
+function switchTab(groupId, btn, paneId, label) {
+  document.querySelectorAll('#' + groupId + ' .tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#' + groupId + ' .tab-pane').forEach(p => p.classList.remove('active'));
+  document.getElementById(paneId).classList.add('active');
+  if (label) {
+    const heroEl = document.querySelector('.hero-title');
+    if (heroEl) heroEl.innerHTML = label;
+    const bcLeaf = document.querySelector('.bc-sep:last-child');
+    if (bcLeaf) bcLeaf.innerHTML = '<span class="arr"></span>' + label;
+  }
+}
+
+function goTab(pageKey, groupId, tabBtnIndex, paneId, heroTitle, bcLabel) {
+  go(pageKey);
+  const btns = document.querySelectorAll('#' + groupId + ' .tab-btn');
+  if (btns[tabBtnIndex]) switchTab(groupId, btns[tabBtnIndex], paneId);
+  const heroEl = document.querySelector('.hero-title');
+  if (heroEl) heroEl.innerHTML = heroTitle;
+  const bcLeaf = document.querySelector('.bc-sep:last-child');
+  if (bcLeaf) bcLeaf.innerHTML = '<span class="arr"></span>' + bcLabel;
+}
+
+// ── SHARED BUILDERS ──
+function IMG(src, alt, h) {
+  const style = h ? `style="height:${h}px"` : '';
+  return `<div class="fig-img" ${style}><img src="${src}" alt="${alt||''}"><div class="desat"></div></div>`;
+}
+
+function HERO(title, src, ref) {
+  return `<div class="hero">
+    <div class="hero-bg"><img src="${src||FIG.heroHome}" alt=""><div class="hero-desat"></div></div>
+    <div class="hero-inner">
+      <div class="hero-title-cell"><div class="hero-title">${title}</div></div>
+      <div class="hero-ref-cell"><div class="hero-ref"><span class="arr arr--w"></span> ${ref||'Link to Reference'}</div></div>
+    </div></div>`;
+}
+
+function BC(label, parentLabel, parentKey, grandparentLabel, grandparentKey) {
+  if (grandparentLabel) return `<div class="bc-wrap"><div class="bc"><span onclick="go('home')" style="cursor:pointer">Home</span><span class="bc-sep"><span class="arr"></span><span onclick="go('${grandparentKey}')" style="cursor:pointer">${grandparentLabel}</span></span><span class="bc-sep"><span class="arr"></span><span onclick="go('${parentKey}')" style="cursor:pointer">${parentLabel}</span></span><span class="bc-sep"><span class="arr"></span>${label}</span></div></div>`;
+  if (parentLabel) return `<div class="bc-wrap"><div class="bc"><span onclick="go('home')" style="cursor:pointer">Home</span><span class="bc-sep"><span class="arr"></span><span onclick="go('${parentKey}')" style="cursor:pointer">${parentLabel}</span></span><span class="bc-sep"><span class="arr"></span>${label}</span></div></div>`;
+  return `<div class="bc-wrap"><div class="bc"><span onclick="go('home')" style="cursor:pointer">Home</span><span class="bc-sep"><span class="arr"></span>${label}</span></div></div>`;
+}
+
+function INTRO(text, cta) {
+  return `<div class="intro-wrap"><div class="intro-sec"><div class="intro-grid">
+    <div class="intro-text-cell"><div class="intro-text">${text}</div></div>
+    <div class="intro-cta-cell"><div class="intro-cta"><span class="arr"></span> ${cta||'Submit an inquiry'}</div></div>
+  </div></div></div>`;
+}
+
+function CASES(n, src) {
+  n = n || 6; src = src || FIG.casesImg;
+  let cards = '';
+  for (let i = 0; i < n; i++) {
+    cards += `<div class="card">${IMG(src,'Reference',394)}<div class="card-link"><span class="arr"></span> Reference</div></div>`;
+  }
+  return `<div class="sb"><div class="sb-h2">Cases</div><div class="g3">${cards}</div></div>`;
+}
+
+function TAB_SECTION(h2, body, imgTall, imgWide) {
+  imgTall = imgTall || FIG.csImgTall;
+  imgWide = imgWide || FIG.csImgWide;
+  return `<div class="cs-wrap"><div class="cs-grid">
+    <div class="cs-text">
+      <div class="cs-h2">${h2}</div>
+      <div class="cs-body">${body}</div>
+      <div class="cs-link"><span class="arr"></span> Read more</div>
+    </div>
+    <div class="cs-img-tall">${IMG(imgTall, h2, 800)}</div>
+    <div class="cs-img-wide">${IMG(imgWide, h2, 361)}</div>
+  </div></div>`;
+}
+
+function FT() {
+  return `<div class="ft">
+    <div class="ft-top">
+      <div class="ft-logo"><img src="${LOGO_FULL}" alt="Erich Keller AG"></div>
+      <div class="ft-cta-area">
+        <button class="ft-btn"><span class="arr arr--w"></span> Get in touch</button>
+        <div class="ft-contact">info@erichkeller.com<br>+41 71 644 88 88</div>
+      </div>
+    </div>
+    <div class="ft-links">
+      <div class="ft-col ft-c1">
+        <div class="ft-col-label">Interior Solutions</div>
+        <div class="ft-col-link" onclick="go('interior-full')">Full-Service Interior Solutions</div>
+        <div class="ft-col-link" onclick="go('comm-desks')">Comm &amp; Control Desks</div>
+        <div class="ft-col-link" onclick="go('talky')">Room-in-Room &amp; Meeting Pods</div>
+      </div>
+      <div class="ft-col ft-c2">
+        <div class="ft-col-label">Climate Control Systems</div>
+        <div class="ft-col-link" onclick="go('climate-building')">Overall Building climate solutions</div>
+        <div class="ft-col-link" onclick="go('climate-room')">Room Climate Solutions</div>
+        <div class="ft-col-link" onclick="go('climate-workstation')">Work-Station Climate Solutions</div>
+        <div class="ft-col-link" onclick="go('climate-server')">Server Room Climate Solutions</div>
+      </div>
+      <div class="ft-col ft-c3">
+        <div class="ft-col-label">About EK</div>
+        <div class="ft-col-link" onclick="go('about-profile')">Profile</div>
+        <div class="ft-col-link" onclick="go('about-history')">History</div>
+        <div class="ft-col-link" onclick="go('about-team')">Team</div>
+        <div class="ft-col-link" onclick="go('about-careers')">Careers</div>
+        <div class="ft-col-link" onclick="go('about-sustainability')">Sustainability</div>
+        <div class="ft-col-link" onclick="go('about-locations')">Locations &amp; Contact</div>
+      </div>
+      <div class="ft-col ft-c4">
+        <div class="ft-col-label">Social Media</div>
+        <div class="ft-col-link">Facebook</div>
+        <div class="ft-col-link">Instagram</div>
+        <div class="ft-col-link">LinkedIn</div>
+        <div class="ft-col-link">Pinterest</div>
+        <div class="ft-col-link">Youtube</div>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <div class="ft-legal"><a>Datenschutzerklärung</a><a>AGB</a></div>
+      <div class="ft-copy">©2026 Erich Keller AG</div>
+    </div>
+  </div>`;
+}
+
+function SLIDER() {
+  return `<div class="slider-sec"><div class="slider-grid">
+    <div class="slider-main">
+      <img src="${FIG.sliderMain}" alt="Workshop">
+      <div class="desat"></div>
+    </div>
+    <div class="slider-side">
+      <div class="slider-side-img">
+        <img src="${FIG.sliderThumb}" alt="Detail">
+        <div class="desat"></div>
+      </div>
+      <div class="slider-pg">
+        <span class="slider-pg-btn" style="opacity:.3">←</span>
+        <span>1 — 4</span>
+        <span class="slider-pg-btn">→</span>
+      </div>
+    </div>
+  </div></div>`;
+}
+
+function PRODUCT_PAGE(title, parentLabel, parentKey, grandparentLabel, grandparentKey, intro, body) {
+  return `
+    ${HERO(title, FIG.heroSection)}
+    ${BC(title, parentLabel, parentKey, grandparentLabel, grandparentKey)}
+    ${INTRO(intro)}
+    <div class="sb"><div class="g2c">
+      <div>
+        <div style="font-size:48px;line-height:1.2;margin-bottom:32px">${title}</div>
+        <div style="font-size:24px;color:#000;line-height:1.4;margin-bottom:32px">${body}</div>
+        <div class="cs-link"><span class="arr"></span> Submit an inquiry</div>
+      </div>
+      ${IMG(FIG.csImgTall, title, 600)}
+    </div></div>
+    ${CASES(3)}
+    ${FT()}`;
+}
+
+// ── PAGE DEFINITIONS ──
+const P = {
+
+'home': () => `
+  ${HERO('Comprehensive interior design<br>and climate control solutions.', FIG.heroHome)}
+  ${INTRO('Erich Keller delivers sophisticated interior construction, highly specialised workspaces, flexible room systems, and sustainable, cost-effective, forward-looking HVAC solutions – in Swiss perfection.')}
+  <div class="sb">
+    <div class="sb-h2">News</div>
+    <div class="g3">
+      <div class="card">${IMG(FIG.newsCard,'Projekt Zürich 2024',394)}<div class="card-date">März 2025</div><div class="card-headline">Projekt Zürich 2024</div></div>
+      <div class="card">${IMG(FIG.newsCard,'Neubau Luzern',394)}<div class="card-date">Februar 2025</div><div class="card-headline">Neubau Luzern</div></div>
+      <div class="card">${IMG(FIG.newsCard,'Award 2025',394)}<div class="card-date">Januar 2025</div><div class="card-headline">Award 2025</div></div>
+    </div>
+  </div>
+  <div class="sb" style="padding-top:0">
+    <div class="g2">
+      <div class="card">${IMG(FIG.casesImg,'Interior Solutions',394)}<div class="card-link card-link--lg" onclick="go('interior-solutions')"><span class="arr"></span> Discover Interior Solutions</div></div>
+      <div class="card">${IMG(FIG.casesImg,'Climate Control Systems',394)}<div class="card-link card-link--lg" onclick="go('climate-control')"><span class="arr"></span> Discover Climate Control Systems</div></div>
+    </div>
+  </div>
+  <div class="jobs-sec">
+    <div class="jobs-grid">
+      <div class="jobs-hd"><div class="jobs-hd-title">Join our team</div></div>
+      <div class="jobs-list">
+        ${['Schreiner/in EFZ','Monteur/in Innenausbau','Projektleiter/in Klimatechnik'].map(j=>`
+        <div class="job-row" onclick="go('about-careers')"><div class="job-title">${j}</div><span class="arr arr--diag"></span></div>`).join('')}
+      </div>
+      <div class="jobs-all" onclick="go('about-careers')"><span class="arr"></span> All Jobs</div>
+    </div>
+  </div>
+  ${SLIDER()}
+  ${FT()}`,
+
+'interior-solutions': () => `
+  ${HERO('Interior Solutions', FIG.heroSection)}
+  ${BC('Interior Solutions')}
+  ${INTRO('Erich Keller delivers sophisticated interior solutions across the full spectrum — from custom furniture and communication desks to flexible room systems — all with Swiss precision and full-service delivery.')}
+  <div class="sb">
+    <div class="sb-h2">Our Interior Solutions</div>
+    <div class="g3">
+      <div class="card">${IMG(FIG.csImgTall,'Full-Service Interior Solutions',394)}<div class="card-link card-link--lg" onclick="go('interior-full')"><span class="arr"></span> Full-Service Interior Solutions</div></div>
+      <div class="card">${IMG(FIG.casesImg,'Comm & Control Desks',394)}<div class="card-link card-link--lg" onclick="go('comm-desks')"><span class="arr"></span> Comm &amp; Control Desks</div></div>
+      <div class="card">${IMG(FIG.csImgWide,'Room-in-Room & Meeting Pods',394)}<div class="card-link card-link--lg" onclick="go('talky')"><span class="arr"></span> Room-in-Room &amp; Meeting Pods</div></div>
+    </div>
+  </div>
+  ${CASES()}
+  ${FT()}`,
+
+'interior-full': () => `
+  ${HERO('Full-Service Interior Solutions', FIG.heroSection)}
+  ${BC('Full-Service Interior Solutions', 'Interior Solutions', 'interior-solutions')}
+  ${INTRO('Erich Keller AG handles the entire interior build — from concept and planning to production, delivery and installation. One partner. No interfaces. Swiss quality throughout.')}
+  <div class="tabs-wrap" id="tg-if"><div class="tabs-inner"><div class="tabs-row">
+    <button class="tab-btn active" onclick="switchTab('tg-if',this,'tp-if-office','Planning and project management')">Planning and project management</button>
+    <button class="tab-btn" onclick="switchTab('tg-if',this,'tp-if-retail','Production and manufacturing')">Production and manufacturing</button>
+    <button class="tab-btn" onclick="switchTab('tg-if',this,'tp-if-private','Delivery and installation')">Delivery and installation</button>
+  </div></div></div>
+  <div id="tp-if-office" class="tab-pane active">${TAB_SECTION('Planning and project management','Erich Keller AG handles the entire interior build — from concept and planning to production, delivery and installation. One partner. No interfaces. Swiss quality throughout.')}</div>
+  <div id="tp-if-retail" class="tab-pane">${TAB_SECTION('Production and manufacturing','Erich Keller AG handles the entire interior build — from concept and planning to production, delivery and installation. One partner. No interfaces. Swiss quality throughout.')}</div>
+  <div id="tp-if-private" class="tab-pane">${TAB_SECTION('Delivery and installation','Erich Keller AG handles the entire interior build — from concept and planning to production, delivery and installation. One partner. No interfaces. Swiss quality throughout.')}</div>
+  ${CASES()}
+  ${FT()}`,
+
+'comm-desks': () => `
+  ${HERO('Comm &amp; Control Desks', FIG.heroSection)}
+  ${BC('Comm &amp; Control Desks', 'Interior Solutions', 'interior-solutions')}
+  ${INTRO('High-end communication desk solutions engineered for the most demanding business environments. Built for 24/7 operation, ergonomic excellence and integration-ready workflows.')}
+  <div class="tabs-wrap" id="tg-cd"><div class="tabs-inner"><div class="tabs-row">
+    <button class="tab-btn active" onclick="switchTab('tg-cd',this,'tp-cd-trading','Trading Floors &amp; Financial Workstations')">Trading Floors &amp; Financial Workstations</button>
+    <button class="tab-btn" onclick="switchTab('tg-cd',this,'tp-cd-control','Control Rooms &amp; Dispatch Centres')">Control Rooms &amp; Dispatch Centres</button>
+    <button class="tab-btn" onclick="switchTab('tg-cd',this,'tp-cd-broadcast','Broadcast &amp; Studio Workstations')">Broadcast &amp; Studio Workstations</button>
+  </div></div></div>
+  <div id="tp-cd-trading" class="tab-pane active">${TAB_SECTION('Trading Floors &amp; Financial Workstations','Mission-critical trading desk systems designed for maximum screen real estate, cable management and operator comfort. Used by leading Swiss financial institutions.')}</div>
+  <div id="tp-cd-control" class="tab-pane">${TAB_SECTION('Control Rooms &amp; Dispatch Centres','Ergonomic control room consoles and dispatch furniture built for around-the-clock mission-critical operations. Tested for durability, flexibility and operator wellbeing.')}</div>
+  <div id="tp-cd-broadcast" class="tab-pane">${TAB_SECTION('Broadcast &amp; Studio Workstations','Custom production desks and studio furniture for broadcast environments — combining acoustic awareness with precise integration of broadcast technology.')}</div>
+  ${CASES()}
+  ${FT()}`,
+
+'talky': () => `
+  ${HERO('Room-in-Room &amp; Meeting Pods', FIG.heroSection)}
+  ${BC('Room-in-Room &amp; Meeting Pods', 'Interior Solutions', 'interior-solutions')}
+  ${INTRO('The Talky Family offers plug-and-play room-in-room solutions for modern workplaces — flexible, acoustically optimised, and ready to use. No construction. No disruption.')}
+  <div class="tabs-wrap" id="tg-ty"><div class="tabs-inner"><div class="tabs-row">
+    <button class="tab-btn active" onclick="switchTab('tg-ty',this,'tp-ty-talky','Talky')">Talky</button>
+    <button class="tab-btn" onclick="switchTab('tg-ty',this,'tp-ty-nook','Talky Nook')">Talky Nook</button>
+    <button class="tab-btn" onclick="switchTab('tg-ty',this,'tp-ty-family','Talky Family &amp; AddOns')">Talky Family &amp; AddOns</button>
+  </div></div></div>
+  <div id="tp-ty-talky" class="tab-pane active">${TAB_SECTION('Talky','The original Talky meeting pod — a self-contained, acoustically sealed room for focused work and private meetings. Available in multiple configurations.')}</div>
+  <div id="tp-ty-nook" class="tab-pane">${TAB_SECTION('Talky Nook','A compact open nook for individual focus work — semi-enclosed, acoustically treated, and designed to integrate seamlessly into open-plan offices.')}</div>
+  <div id="tp-ty-family" class="tab-pane">${TAB_SECTION('Talky Family &amp; AddOns','The full Talky Village ecosystem — modular pods, connecting elements, and AddOns that let you build a complete flexible work village within any space.')}</div>
+  ${CASES()}
+  ${FT()}`,
+
+'climate-control': () => `
+  ${HERO('Climate Control Systems', FIG.heroSection)}
+  ${BC('Climate Control Systems')}
+  ${INTRO('Erich Keller delivers intelligent, precision-engineered climate control systems for the full range of building environments — from overall HVAC strategy to room-level and server-specific solutions.')}
+  <div class="sb">
+    <div class="sb-h2">Dedicated Solutions</div>
+    <div class="g2" style="margin-bottom:8px">
+      <div class="card">${IMG(FIG.casesImg,'Building Climate',394)}<div class="card-link card-link--lg" onclick="go('climate-building')"><span class="arr"></span> Overall Building Climate Solutions</div></div>
+      <div class="card">${IMG(FIG.csImgWide,'Room Climate',394)}<div class="card-link card-link--lg" onclick="go('climate-room')"><span class="arr"></span> Room and Floor Climate Solutions</div></div>
+    </div>
+    <div class="g2">
+      <div class="card">${IMG(FIG.csImgTall,'Workstation Climate',394)}<div class="card-link card-link--lg" onclick="go('climate-workstation')"><span class="arr"></span> Work-Station Climate Solutions</div></div>
+      <div class="card">${IMG(FIG.sliderThumb,'Server Climate',394)}<div class="card-link card-link--lg" onclick="go('climate-server')"><span class="arr"></span> Server Room Climate Solutions</div></div>
+    </div>
+  </div>
+  ${CASES()}
+  ${FT()}`,
+
+'climate-building': () => `
+  ${HERO('Overall Building Climate Solutions', FIG.heroSection)}
+  ${BC('Overall Building Climate Solutions', 'Climate Control Systems', 'climate-control')}
+  ${INTRO('Advanced HVAC strategies and climate systems engineered for entire building environments — efficient, sustainable, and precision-calibrated for Swiss standards.')}
+  <div class="sb"><div class="g2c">
+    <div>
+      <div style="font-size:48px;line-height:1.2;margin-bottom:32px">Building-wide Climate Intelligence</div>
+      <div style="font-size:24px;color:#000;line-height:1.4;margin-bottom:32px">Centralised climate control systems that manage temperature, airflow, and humidity across entire buildings — integrating with BMS infrastructure and smart building platforms.</div>
+      <div class="cs-link"><span class="arr"></span> Submit an inquiry</div>
+    </div>
+    ${IMG(FIG.csImgTall,'Building Climate',600)}
+  </div></div>
+  ${CASES()}${FT()}`,
+
+'climate-room': () => `
+  ${HERO('Room and Floor Climate Solutions', FIG.heroSection)}
+  ${BC('Room and Floor Climate Solutions', 'Climate Control Systems', 'climate-control')}
+  ${INTRO('Targeted room-level climate solutions that ensure optimal temperature, airflow and air quality in individual spaces — adaptable, efficient and silent.')}
+  <div class="sb"><div class="g2c">
+    <div>
+      <div style="font-size:48px;line-height:1.2;margin-bottom:32px">Room-Level Precision</div>
+      <div style="font-size:24px;color:#000;line-height:1.4;margin-bottom:32px">Individual room climate systems that deliver consistent comfort — integrated with Erich Keller's interior solutions for a seamless build-out from day one.</div>
+      <div class="cs-link"><span class="arr"></span> Submit an inquiry</div>
+    </div>
+    ${IMG(FIG.csImgTall,'Room Climate',600)}
+  </div></div>
+  ${CASES()}${FT()}`,
+
+'climate-workstation': () => `
+  ${HERO('Work-Station Climate Solutions', FIG.heroSection)}
+  ${BC('Work-Station Climate Solutions', 'Climate Control Systems', 'climate-control')}
+  ${INTRO('Ergonomic climate solutions at workstation level — keeping operators productive, comfortable and healthy throughout long working hours in demanding environments.')}
+  <div class="sb"><div class="g2c">
+    <div>
+      <div style="font-size:48px;line-height:1.2;margin-bottom:32px">Comfort at Every Desk</div>
+      <div style="font-size:24px;color:#000;line-height:1.4;margin-bottom:32px">Desk-integrated climate units that deliver personal climate control — especially effective in trading floors, control rooms and open-plan offices.</div>
+      <div class="cs-link"><span class="arr"></span> Submit an inquiry</div>
+    </div>
+    ${IMG(FIG.csImgTall,'Workstation Climate',600)}
+  </div></div>
+  ${CASES()}${FT()}`,
+
+'climate-server': () => `
+  ${HERO('Server Room Climate Solutions', FIG.heroSection)}
+  ${BC('Server Room Climate Solutions', 'Climate Control Systems', 'climate-control')}
+  ${INTRO('Specialised cooling and climate solutions for server rooms and data environments — precision-controlled, redundant, and built for continuous uptime.')}
+  <div class="sb"><div class="g2c">
+    <div>
+      <div style="font-size:48px;line-height:1.2;margin-bottom:32px">Mission-Critical Cooling</div>
+      <div style="font-size:24px;color:#000;line-height:1.4;margin-bottom:32px">Server room climate systems designed to meet strict thermal requirements — with redundancy, monitoring integration, and compliance with data centre standards.</div>
+      <div class="cs-link"><span class="arr"></span> Submit an inquiry</div>
+    </div>
+    ${IMG(FIG.csImgTall,'Server Climate',600)}
+  </div></div>
+  ${CASES()}${FT()}`,
+
+'climate-building-rio-therm': () => PRODUCT_PAGE('Rio-Therm','Overall Building Climate Solutions','climate-building','Climate Control Systems','climate-control',
+  'Rio-Therm is Erich Keller\'s flagship radiant ceiling climate system — delivering highly efficient, draught-free heating and cooling across entire building floors.',
+  'A modular radiant panel system integrated directly into ceiling structures, managing temperature through infrared radiation rather than forced air. Ideal for open-plan offices, banking halls, and high-ceiling commercial environments requiring precise, silent climate control.'),
+
+'climate-building-concept': () => PRODUCT_PAGE('Overall Concept','Overall Building Climate Solutions','climate-building','Climate Control Systems','climate-control',
+  'A holistic building climate strategy engineered from the ground up — integrating all climate systems into a single, coherent BMS-ready solution.',
+  'Erich Keller\'s overall building climate concept combines Rio-Therm radiant panels, ventilation, and smart building integration into one coordinated system. Designed for new builds and major refurbishments requiring a single-source climate partner.'),
+
+'climate-room-connector-fan': () => PRODUCT_PAGE('Connector Fan','Room and Floor Climate Solutions','climate-room','Climate Control Systems','climate-control',
+  'The Connector Fan is a compact, high-performance fan unit designed for room and floor-level climate distribution in commercial interiors.',
+  'Engineered for quiet, efficient airflow management within individual rooms and open-plan floors. The Connector Fan integrates seamlessly with raised floor systems and existing HVAC infrastructure — ideal for office refurbishments and fit-outs.'),
+
+'climate-workstation-cool-top': () => PRODUCT_PAGE('Cool-Top','Work-Station Climate Solutions','climate-workstation','Climate Control Systems','climate-control',
+  'Cool-Top delivers personalised, desk-level cooling directly to the operator — improving comfort and productivity in demanding work environments.',
+  'A compact climate unit that mounts at or near the workstation surface, delivering a controlled stream of cool, filtered air. Developed specifically for trading floors, control rooms, and 24/7 operator environments where standard HVAC cannot meet individual comfort requirements.'),
+
+'climate-workstation-steri-pac': () => PRODUCT_PAGE('Steri-Pac','Work-Station Climate Solutions','climate-workstation','Climate Control Systems','climate-control',
+  'Steri-Pac is a specialised workstation climate unit combining personal air filtration with active sterilisation — designed for health-critical and clean-room adjacent environments.',
+  'Provides HEPA-filtered, sterilised air at the workstation level, reducing airborne contaminants and improving air quality for operators in laboratories, healthcare administration, and sensitive back-office environments.'),
+
+'climate-server-top-rack': () => PRODUCT_PAGE('Top Rack','Server Room Climate Solutions','climate-server','Climate Control Systems','climate-control',
+  'Top Rack is a rack-mounted cooling unit engineered for direct server-level heat extraction in high-density data environments.',
+  'Mounts directly above or within server racks, capturing heat at source and preventing hot-spot formation. Designed for data centres, on-premise server rooms, and network infrastructure environments with strict thermal management requirements.'),
+
+'climate-server-top-cooler': () => PRODUCT_PAGE('Top-Cooler','Server Room Climate Solutions','climate-server','Climate Control Systems','climate-control',
+  'Top-Cooler is a precision ceiling-mounted cooling unit for server rooms and technical infrastructure spaces requiring continuous, reliable climate control.',
+  'Delivers consistent, redundant cooling to server room environments — suitable for both new builds and retrofit installations. Engineered for 24/7 uptime with monitoring-ready outputs and compliance with leading data centre thermal standards.'),
+
+'about': () => `
+  ${HERO('Inside Erich Keller', FIG.heroSection)}
+  ${BC('About EK')}
+  ${INTRO('Erich Keller AG — founded in 1926. For nearly 100 years, we have been delivering precision interior construction and advanced climate systems with uncompromising Swiss quality.')}
+  <div class="sb">
+    <div class="stats-row">
+      <div><div class="stat-num">300<sup style="font-size:40px">+</sup></div><div class="stat-lbl">Completed projects</div></div>
+      <div><div class="stat-num">70<sup style="font-size:40px">+</sup></div><div class="stat-lbl">Years of Swiss innovation</div></div>
+      <div><div class="stat-num">120</div><div class="stat-lbl">Employees across Switzerland</div></div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;padding-top:8px">
+      <div class="cs-link" onclick="go('about-profile')"><span class="arr"></span> Find out more</div>
+    </div>
+  </div>
+  <div class="sb" style="padding-top:0">
+    <div class="sb-h2">Meet the Team</div>
+    <div class="g3">
+      <div class="card">${IMG(FIG.sliderMain,'Team',394)}<div class="card-link card-link--lg" onclick="go('about-team')"><span class="arr"></span> Team</div></div>
+      <div class="card">${IMG(FIG.casesImg,'Sustainability',394)}<div class="card-link card-link--lg" onclick="go('about-sustainability')"><span class="arr"></span> Sustainability</div></div>
+      <div class="card">${IMG(FIG.csImgTall,'Profile',394)}<div class="card-link card-link--lg" onclick="go('about-profile')"><span class="arr"></span> Profile</div></div>
+    </div>
+  </div>
+  <div class="sb" style="padding-top:0">
+    <div class="sb-h2">Find us</div>
+    <div class="locs-g">
+      ${[['Herisau (Hauptsitz)','Industriestrasse 1<br>9100 Herisau<br>+41 71 644 88 88'],['Zürich','Altstetten<br>8048 Zürich<br>+41 44 000 00 00'],['Basel','Muttenz<br>4132 Muttenz<br>+41 61 000 00 00']].map(([n,a])=>`
+      <div class="loc-card">
+        <div class="loc-name">${n}</div>
+        <div class="loc-addr">${a}</div>
+        <div class="cs-link" style="margin-top:8px"><span class="arr"></span> Get directions</div>
+      </div>`).join('')}
+    </div>
+  </div>
+  ${SLIDER()}
+  ${FT()}`,
+
+'about-profile': () => `
+  ${HERO('Profile', FIG.heroSection)}
+  ${BC('Profile', 'About EK', 'about')}
+  ${INTRO('Erich Keller AG was founded in 1926 in Eastern Switzerland. Today we are one of Switzerland\'s leading providers of custom interior construction and precision climate systems.')}
+  <div class="sb"><div class="g2c">
+    <div>
+      <div style="font-size:48px;line-height:1.2;margin-bottom:40px">Swiss precision since 1926</div>
+      <div style="font-size:24px;line-height:1.4;margin-bottom:24px">We design, produce and install premium interior environments for demanding clients across Switzerland and beyond. Our vertically integrated model — from planning to production to installation — ensures quality at every stage.</div>
+      <div style="font-size:24px;line-height:1.4;margin-bottom:32px">With three locations, over 200 employees, and nearly a century of craft knowledge, Erich Keller AG is your single point of responsibility for complex interior and climate projects.</div>
+      <div class="cs-link"><span class="arr"></span> Submit an inquiry</div>
+    </div>
+    ${IMG(FIG.sliderMain,'Profile',700)}
+  </div></div>
+  ${FT()}`,
+
+'about-history': () => `
+  ${HERO('History', FIG.heroSection)}
+  ${BC('History', 'About EK', 'about')}
+  ${INTRO('From a small joinery workshop to a leading provider of precision interiors and intelligent climate systems — a century of continuous innovation.')}
+  <div class="sb">
+    <div class="sb-h2">Milestones</div>
+    <div class="tl">
+      ${[
+        ['1926','Founded in Eastern Switzerland','Erich Keller establishes his joinery workshop in the Appenzell region, laying the foundation for nearly 100 years of Swiss craftsmanship.'],
+        ['1950s','Expansion into commercial interiors','Growing demand from Swiss industry drives expansion into full commercial interior fit-out — offices, banks, and public buildings.'],
+        ['1970s','Climate systems integration','Erich Keller pioneers the integration of climate control into its interior projects — offering clients a single-source solution.'],
+        ['1990s','Specialised workstation systems','Development of mission-critical workstation systems for trading floors and control rooms — becoming the reference provider for Swiss financial institutions.'],
+        ['2008','Launch of Talky','The first modular room-in-room system enters the market, addressing the growing demand for flexible, acoustic work environments.'],
+        ['2015','Greenguard Gold certification','Climate systems achieve Greenguard Gold certification, reinforcing EK\'s commitment to healthy indoor environments.'],
+        ['2020s','Digital transformation','Investment in BIM, digital project management and smart building integration.'],
+        ['2026','Approaching 100 years','Erich Keller AG celebrates a century of Swiss quality.'],
+      ].map(([yr,t,d])=>`
+      <div class="tl-item">
+        <div class="tl-year">${yr}</div>
+        <div><div class="tl-title">${t}</div><div class="tl-desc">${d}</div></div>
+      </div>`).join('')}
+    </div>
+  </div>
+  ${FT()}`,
+
+'about-team': () => `
+  ${HERO('Team', FIG.heroSection)}
+  ${BC('Team', 'About EK', 'about')}
+  ${INTRO('Behind every Erich Keller project is a team of specialists who combine craft, engineering expertise and project management excellence.')}
+  <div class="sb">
+    <div class="sb-h2">Leadership</div>
+    <div class="team-g">
+      ${[['Andreas Keller','CEO'],['Sandra Meier','COO'],['Thomas Huber','Head of Interior Solutions'],['Claudia Brunner','Head of Climate Systems'],['Michael Fässler','Head of Production'],['Reto Schmid','Head of Projects'],['Laura Benz','Marketing'],['David Müller','Sales']].map(([n,r])=>`
+      <div>
+        <div class="team-img">${IMG(FIG.casesImg, n, null)}</div>
+        <div class="team-name">${n}</div>
+        <div class="team-role">${r}</div>
+      </div>`).join('')}
+    </div>
+  </div>
+  ${FT()}`,
+
+'about-careers': () => `
+  ${HERO('Careers', FIG.heroSection)}
+  ${BC('Careers', 'About EK', 'about')}
+  ${INTRO('Erich Keller AG is a place where craft meets innovation. We offer apprenticeships, specialist roles, and leadership opportunities — all rooted in Swiss quality.')}
+  <div class="jobs-sec">
+    <div class="jobs-grid">
+      <div class="jobs-hd"><div class="jobs-hd-title">Open Positions</div></div>
+      <div class="jobs-list">
+        ${['Schreiner/in EFZ (Lehrling)','Monteur/in Innenausbau','Projektleiter/in Innenausbau','Techniker/in Klimatechnik HF','Projektleiter/in Klimatechnik','CAD-Konstrukteur/in Möbel &amp; Innenausbau','Kaufmännische/r Sachbearbeiter/in'].map(j=>`
+        <div class="job-row"><div class="job-title">${j}</div><span class="arr arr--diag"></span></div>`).join('')}
+      </div>
+    </div>
+  </div>
+  <div class="sb" style="padding-top:80px"><div class="g2c">
+    <div>
+      <div style="font-size:48px;line-height:1.2;margin-bottom:32px">Apprenticeships</div>
+      <div style="font-size:24px;line-height:1.4;margin-bottom:32px">Erich Keller AG trains the next generation of Swiss craftspeople. EFZ apprenticeships in cabinetmaking, interior construction and commercial roles — with close mentoring and real project exposure from day one.</div>
+      <div class="cs-link"><span class="arr"></span> Apply now</div>
+    </div>
+    ${IMG(FIG.sliderMain,'Apprenticeships',400)}
+  </div></div>
+  ${FT()}`,
+
+'about-sustainability': () => `
+  ${HERO('Sustainability', FIG.heroSection)}
+  ${BC('Sustainability', 'About EK', 'about')}
+  ${INTRO('Erich Keller AG is committed to sustainable, healthy indoor environments. Our climate systems carry Greenguard Gold certification — the highest standard for chemical emissions and indoor air quality.')}
+  <div class="sb"><div class="sustain-g">
+    <div class="sustain-txt">
+      <div style="font-size:48px;line-height:1.2">Greenguard Gold Certified</div>
+      <div style="font-size:24px;color:#000;line-height:1.4">Our climate control systems are certified to UL GREENGUARD Gold standards — ensuring exceptionally low chemical emissions and superior indoor air quality for schools, healthcare, and sensitive environments.</div>
+      <div style="font-size:24px;color:#000;line-height:1.4">We are committed to reducing embodied carbon across our supply chain, sourcing Swiss and regional materials wherever possible, and designing for longevity over replacement.</div>
+      <div class="badge">🏅 Greenguard Gold Certified Systems</div>
+      <div class="cs-link" style="margin-top:32px"><span class="arr"></span> Download Sustainability Report</div>
+    </div>
+    ${IMG(FIG.casesImg,'Sustainability',600)}
+  </div></div>
+  <div class="sb" style="padding-top:0">
+    <div class="sb-h2">Our Commitments</div>
+    <div class="g3">
+      ${[['Indoor Air Quality','Greenguard Gold certified systems, low-VOC materials, and continuous air quality monitoring solutions.'],['Material Sourcing','Swiss timber, regional suppliers, and certified sustainable materials throughout our production.'],['Longevity by Design','Products engineered to last decades — reducing waste and lifecycle environmental impact.']].map(([t,d])=>`
+      <div style="padding:32px 0;border-top:1px solid rgba(0,0,0,.1)">
+        <div style="font-size:24px;color:#000;margin-bottom:16px">${t}</div>
+        <div style="font-size:16px;color:rgba(0,0,0,.5);line-height:1.6">${d}</div>
+      </div>`).join('')}
+    </div>
+  </div>
+  ${FT()}`,
+
+'about-locations': () => `
+  ${HERO('Locations &amp; Contact', FIG.heroSection)}
+  ${BC('Locations &amp; Contact', 'About EK', 'about')}
+  ${INTRO('Three locations across Switzerland, serving clients from Basel to Zurich and beyond. One team. One quality standard.')}
+  <div class="sb">
+    <div class="sb-h2">Our Locations</div>
+    <div class="locs-g">
+      ${[['Herisau (Hauptsitz)','Erich Keller AG<br>Industriestrasse 1<br>9100 Herisau<br>+41 71 644 88 88'],['Zürich','Erich Keller AG<br>Altstetten<br>8048 Zürich<br>+41 44 000 00 00'],['Basel','Erich Keller AG<br>Muttenz<br>4132 Muttenz<br>+41 61 000 00 00']].map(([n,a])=>`
+      <div class="loc-card">
+        <div class="loc-name">${n}</div>
+        <div class="loc-addr">${a}</div>
+        <div class="cs-link" style="margin-top:8px"><span class="arr"></span> Get directions</div>
+      </div>`).join('')}
+    </div>
+  </div>
+  <div class="sb" style="padding-top:0"><div class="g2c">
+    <div>
+      <div style="font-size:48px;line-height:1.2;margin-bottom:32px">Get in touch</div>
+      <div style="font-size:24px;line-height:1.4;margin-bottom:8px">info@erichkeller.com</div>
+      <div style="font-size:24px;line-height:1.4;margin-bottom:32px">+41 71 644 88 88</div>
+      <button class="ft-btn"><span class="arr arr--w"></span> Submit an inquiry</button>
+    </div>
+    ${IMG(FIG.sliderThumb,'Contact',400)}
+  </div></div>
+  ${FT()}`,
+};
+
+// ── ROUTER ──
+function go(key) {
+  closeFlyout();
+  if (!P[key]) key = 'home';
+  document.getElementById('main').innerHTML = P[key]();
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+go('home');
+</script>
+</body>
+</html>
