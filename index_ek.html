@@ -226,13 +226,13 @@ ul, ol { list-style: none; }
   display: grid; grid-template-columns: repeat(12, minmax(0,1fr));
   gap: 8px; padding: 40px 40px 0; height: 100%;
 }
-.cs-text { grid-column: 1 / span 4; display: flex; flex-direction: column; align-items: flex-start; }
+.cs-text { grid-column: 1 / span 4; grid-row: 1; display: flex; flex-direction: column; align-items: flex-start; }
 .cs-h2 { font-size: 48px; color: #000; line-height: 1.2; margin-bottom: 40px; }
 .cs-body { font-size: 24px; color: #000; line-height: 1.4; margin-bottom: 40px; }
 .cs-link { display: flex; align-items: center; gap: 12px; font-size: 16px; color: #000; cursor: pointer; transition: opacity .15s; }
 .cs-link:hover { opacity: .65; }
-.cs-img-tall { grid-column: 10 / span 3; align-self: flex-start; }
-.cs-img-wide { grid-column: 5 / span 4; align-self: end; }
+.cs-img-tall { grid-column: 9 / span 4; grid-row: 1; align-self: start; }
+.cs-img-wide { grid-column: 5 / span 4; grid-row: 1; align-self: end; }
 
 /* ── SECTION BLOCK ── */
 .sb { max-width: 1290px; margin: 0 auto; padding: 160px 40px; }
@@ -409,21 +409,21 @@ ul, ol { list-style: none; }
     <div class="fp" id="fp-interior">
       <div class="fp-grid">
         <div class="fp-col-4">
-          <div class="fp-title">Office and Conference Spaces</div>
-          <div class="fp-desc">Erich Keller plans and develops Office and Conference Spaces</div>
-          <button class="fp-overview" onclick="closeFlyout();goTab('interior-full','tg-if',0,'tp-if-office','Office and Conference Spaces','Office and Conference Spaces','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Overview</button>
+          <div class="fp-title">Planning and project management</div>
+          <div class="fp-desc">Erich Keller plans and develops Planning and project management</div>
+          <button class="fp-overview" onclick="closeFlyout();goTab('interior-full','tg-if',0,'tp-if-office','Planning and project management','Planning and project management','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Overview</button>
           <hr class="fp-divider">
         </div>
         <div class="fp-col-4">
-          <div class="fp-title">Retail Spaces</div>
-          <div class="fp-desc">Erich Keller plans and develops Retail Spaces</div>
-          <button class="fp-overview" onclick="closeFlyout();goTab('interior-full','tg-if',1,'tp-if-retail','Retail Spaces','Retail Spaces','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Overview</button>
+          <div class="fp-title">Production and manufacturing</div>
+          <div class="fp-desc">Erich Keller plans and develops Production and manufacturing</div>
+          <button class="fp-overview" onclick="closeFlyout();goTab('interior-full','tg-if',1,'tp-if-retail','Production and manufacturing','Production and manufacturing','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Overview</button>
           <hr class="fp-divider">
         </div>
         <div class="fp-col-4">
-          <div class="fp-title">Private Spaces</div>
-          <div class="fp-desc">Erich Keller plans and develops Private Spaces</div>
-          <button class="fp-overview" onclick="closeFlyout();goTab('interior-full','tg-if',2,'tp-if-private','Private Spaces','Private Spaces','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Overview</button>
+          <div class="fp-title">Delivery and installation</div>
+          <div class="fp-desc">Erich Keller plans and develops Delivery and installation</div>
+          <button class="fp-overview" onclick="closeFlyout();goTab('interior-full','tg-if',2,'tp-if-private','Delivery and installation','Delivery and installation','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Overview</button>
           <hr class="fp-divider">
         </div>
       </div>
@@ -890,13 +890,13 @@ const P = {
   ${BC('Full-Service Interior Solutions', 'Interior Solutions', 'interior-solutions')}
   ${INTRO('Erich Keller AG handles the entire interior build — from concept and planning to production, delivery and installation. One partner. No interfaces. Swiss quality throughout.')}
   <div class="tabs-wrap" id="tg-if"><div class="tabs-inner"><div class="tabs-row">
-    <button class="tab-btn active" onclick="switchTab('tg-if',this,'tp-if-office','Office and Conference Spaces')">Office and Conference Spaces</button>
-    <button class="tab-btn" onclick="switchTab('tg-if',this,'tp-if-retail','Retail Spaces')">Retail Spaces</button>
-    <button class="tab-btn" onclick="switchTab('tg-if',this,'tp-if-private','Private Spaces')">Private Spaces</button>
+    <button class="tab-btn active" onclick="switchTab('tg-if',this,'tp-if-office','Planning and project management')">Planning and project management</button>
+    <button class="tab-btn" onclick="switchTab('tg-if',this,'tp-if-retail','Production and manufacturing')">Production and manufacturing</button>
+    <button class="tab-btn" onclick="switchTab('tg-if',this,'tp-if-private','Delivery and installation')">Delivery and installation</button>
   </div></div></div>
-  <div id="tp-if-office" class="tab-pane active" data-group="tg-if">${TAB_CONTENT_SECTION('Office and Conference Spaces','Precision-engineered office interiors and premium conference environments, tailored to the specific demands of modern Swiss workplaces. From executive suites to collaborative zones.')}</div>
-  <div id="tp-if-retail" class="tab-pane" data-group="tg-if">${TAB_CONTENT_SECTION('Retail Spaces','High-end retail interior concepts combining brand identity with functional excellence. Custom fixtures, materials, and lighting — all produced in-house.')}</div>
-  <div id="tp-if-private" class="tab-pane" data-group="tg-if">${TAB_CONTENT_SECTION('Private Spaces','Bespoke interiors for private residences and exclusive spaces — where craftsmanship meets individual vision. Every detail made to last.')}</div>
+  <div id="tp-if-office" class="tab-pane active" data-group="tg-if">${TAB_CONTENT_SECTION('Planning and project management','Precision-engineered office interiors and premium conference environments, tailored to the specific demands of modern Swiss workplaces. From executive suites to collaborative zones.')}</div>
+  <div id="tp-if-retail" class="tab-pane" data-group="tg-if">${TAB_CONTENT_SECTION('Production and manufacturing','High-end retail interior concepts combining brand identity with functional excellence. Custom fixtures, materials, and lighting — all produced in-house.')}</div>
+  <div id="tp-if-private" class="tab-pane" data-group="tg-if">${TAB_CONTENT_SECTION('Delivery and installation','Bespoke interiors for private residences and exclusive spaces — where craftsmanship meets individual vision. Every detail made to last.')}</div>
   ${CASES()}
   ${FT()}`,
 

@@ -142,13 +142,13 @@ ul, ol { list-style: none; }
 /* ── CONTENT SECTION ── */
 .cs-wrap { max-width: 1290px; margin: 0 auto; height: 840px; position: relative; }
 .cs-grid { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 8px; padding: 40px 40px 0; height: 100%; }
-.cs-text { grid-column: 1 / span 4; display: flex; flex-direction: column; align-items: flex-start; }
+.cs-text { grid-column: 1 / span 4; grid-row: 1; display: flex; flex-direction: column; align-items: flex-start; }
 .cs-h2 { font-size: 48px; color: #000; line-height: 1.2; margin-bottom: 40px; }
 .cs-body { font-size: 24px; color: #000; line-height: 1.4; margin-bottom: 40px; }
 .cs-link { display: flex; align-items: center; gap: 12px; font-size: 16px; color: #000; cursor: pointer; transition: opacity .15s; }
 .cs-link:hover { opacity: .65; }
-.cs-img-tall { grid-column: 10 / span 3; align-self: flex-start; }
-.cs-img-wide { grid-column: 5 / span 4; align-self: end; }
+.cs-img-tall { grid-column: 9 / span 4; grid-row: 1; align-self: start; }
+.cs-img-wide { grid-column: 5 / span 4; grid-row: 1; align-self: end; }
 .fig-img { position: relative; overflow: hidden; }
 .fig-img img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; max-width: none; }
 .fig-img .desat { position: absolute; inset: 0; background: white; mix-blend-mode: saturation; pointer-events: none; }
@@ -304,9 +304,9 @@ ul, ol { list-style: none; }
           <button class="fp-overview" onclick="closeFlyout();go('interior-full')"><span class="arr arr--w"></span> Overview</button>
           <hr class="fp-divider">
           <div class="fp-links">
-            <button class="fp-link" onclick="closeFlyout();goTab('interior-full','tg-if',0,'tp-if-office','Office and Conference Spaces','Office and Conference Spaces','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Office and Conference Spaces</button>
-            <button class="fp-link" onclick="closeFlyout();goTab('interior-full','tg-if',1,'tp-if-retail','Retail Spaces','Retail Spaces','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Retail Spaces</button>
-            <button class="fp-link" onclick="closeFlyout();goTab('interior-full','tg-if',2,'tp-if-private','Private Spaces','Private Spaces','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Private Spaces</button>
+            <button class="fp-link" onclick="closeFlyout();goTab('interior-full','tg-if',0,'tp-if-office','Planning and project management','Planning and project management','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Planning and project management</button>
+            <button class="fp-link" onclick="closeFlyout();goTab('interior-full','tg-if',1,'tp-if-retail','Production and manufacturing','Production and manufacturing','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Production and manufacturing</button>
+            <button class="fp-link" onclick="closeFlyout();goTab('interior-full','tg-if',2,'tp-if-private','Delivery and installation','Delivery and installation','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Delivery and installation</button>
           </div>
         </div>
         <div class="fp-col-4">
