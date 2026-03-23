@@ -96,7 +96,7 @@ ul, ol { list-style: none; }
 .fp-overview:hover { opacity: .6; }
 .fp-divider { border: none; border-top: 1px solid rgba(255,255,255,.25); margin: 20px 0 24px; }
 .fp-links { display: flex; flex-direction: column; gap: 20px; }
-.fp-link { display: flex; align-items: flex-start; gap: 10px; font-size: 16px; color: #fff; line-height: 1.5; background: none; border: none; font-family: inherit; cursor: pointer; text-align: left; padding: 0; transition: opacity .15s; }
+.fp-link { display: flex; align-items: center; gap: 10px; font-size: 16px; color: #fff; line-height: 1.5; background: none; border: none; font-family: inherit; cursor: pointer; text-align: left; padding: 0; transition: opacity .15s; }
 .fp-link:hover { opacity: .6; }
 .fp-bottom { display: flex; justify-content: flex-end; align-items: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.2); }
 .fp-bottom-link { display: flex; align-items: center; gap: 10px; font-size: 16px; color: #fff; background: none; border: none; font-family: inherit; cursor: pointer; transition: opacity .15s; }
@@ -254,7 +254,7 @@ ul, ol { list-style: none; }
 <!-- NAV BAR -->
 <div id="nav-bar">
   <div class="nav-left">
-    <div class="nav-logo" onclick="go('home')"><img src="Logos/EK_Logo_32.png" alt="EK"></div>
+    <div class="nav-logo" onclick="go('home')"><img src="Logos/EK_Logo_256.png" alt="EK"></div>
     <div class="nav-items">
       <button class="nav-btn" id="nb-interior" onclick="toggleFlyout('interior')">
         <span class="label">Interior Solutions</span>
@@ -276,7 +276,7 @@ ul, ol { list-style: none; }
 <div id="flyout-overlay">
   <div id="fnav-row">
     <div class="fnav-left">
-      <div class="fnav-logo" onclick="closeFlyout();go('home')"><img src="Logos/EK_Logo_32.png" alt="EK"></div>
+      <div class="fnav-logo" onclick="closeFlyout();go('home')"><img src="Logos/EK_Logo_256.png" alt="EK"></div>
       <div class="fnav-items">
         <button class="fnav-btn" id="fn-interior" onclick="switchFP('interior')">
           <span class="label">Interior Solutions</span>
@@ -427,7 +427,7 @@ const FIG = {
   casesImg:     'https://www.figma.com/api/mcp/asset/ed36fd5f-bc89-4af2-a6a0-e115acbe2fd9',
 };
 
-const LOGO_MARK = 'Logos/EK_Logo_32.png';
+const LOGO_MARK = 'Logos/EK_Logo_256.png';
 const LOGO_FULL = 'Logos/EK_Logo_Full_black.png';
 
 // ── NAV LOGIC ──
@@ -481,7 +481,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFlyout(
 function switchTab(groupId, btn, paneId, label) {
   document.querySelectorAll('#' + groupId + ' .tab-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('#' + groupId + ' .tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-pane[data-group="' + groupId + '"]').forEach(p => p.classList.remove('active'));
   document.getElementById(paneId).classList.add('active');
   if (label) {
     const heroEl = document.querySelector('.hero-title');
@@ -541,7 +541,7 @@ function CASES(n, src) {
 function TAB_SECTION(h2, body, imgTall, imgWide) {
   imgTall = imgTall || FIG.csImgTall;
   imgWide = imgWide || FIG.csImgWide;
-  return `<div class="cs-wrap"><div class="cs-grid">
+  return `<div class="cs-wrap"><div class="cs-grid" style="align-items:start">
     <div class="cs-text">
       <div class="cs-h2">${h2}</div>
       <div class="cs-body">${body}</div>
@@ -641,7 +641,7 @@ function PRODUCT_PAGE(title, parentLabel, parentKey, grandparentLabel, grandpare
 const P = {
 
 'home': () => `
-  ${HERO('Comprehensive interior design<br>and climate control solutions.', FIG.heroHome)}
+  ${HERO('Comprehensive interior design and climate control solutions.', FIG.heroHome)}
   ${INTRO('Erich Keller delivers sophisticated interior construction, highly specialised workspaces, flexible room systems, and sustainable, cost-effective, forward-looking HVAC solutions – in Swiss perfection.')}
   <div class="sb">
     <div class="sb-h2">News</div>
@@ -694,9 +694,9 @@ const P = {
     <button class="tab-btn" onclick="switchTab('tg-if',this,'tp-if-retail','Production and manufacturing')">Production and manufacturing</button>
     <button class="tab-btn" onclick="switchTab('tg-if',this,'tp-if-private','Delivery and installation')">Delivery and installation</button>
   </div></div></div>
-  <div id="tp-if-office" class="tab-pane active">${TAB_SECTION('Planning and project management','Erich Keller AG handles the entire interior build — from concept and planning to production, delivery and installation. One partner. No interfaces. Swiss quality throughout.')}</div>
-  <div id="tp-if-retail" class="tab-pane">${TAB_SECTION('Production and manufacturing','Erich Keller AG handles the entire interior build — from concept and planning to production, delivery and installation. One partner. No interfaces. Swiss quality throughout.')}</div>
-  <div id="tp-if-private" class="tab-pane">${TAB_SECTION('Delivery and installation','Erich Keller AG handles the entire interior build — from concept and planning to production, delivery and installation. One partner. No interfaces. Swiss quality throughout.')}</div>
+  <div id="tp-if-office" class="tab-pane active" data-group="tg-if">${TAB_SECTION('Planning and project management','Erich Keller AG handles the entire interior build — from concept and planning to production, delivery and installation. One partner. No interfaces. Swiss quality throughout.')}</div>
+  <div id="tp-if-retail" class="tab-pane" data-group="tg-if">${TAB_SECTION('Production and manufacturing','Erich Keller AG handles the entire interior build — from concept and planning to production, delivery and installation. One partner. No interfaces. Swiss quality throughout.')}</div>
+  <div id="tp-if-private" class="tab-pane" data-group="tg-if">${TAB_SECTION('Delivery and installation','Erich Keller AG handles the entire interior build — from concept and planning to production, delivery and installation. One partner. No interfaces. Swiss quality throughout.')}</div>
   ${CASES()}
   ${FT()}`,
 
@@ -709,9 +709,9 @@ const P = {
     <button class="tab-btn" onclick="switchTab('tg-cd',this,'tp-cd-control','Control Rooms &amp; Dispatch Centres')">Control Rooms &amp; Dispatch Centres</button>
     <button class="tab-btn" onclick="switchTab('tg-cd',this,'tp-cd-broadcast','Broadcast &amp; Studio Workstations')">Broadcast &amp; Studio Workstations</button>
   </div></div></div>
-  <div id="tp-cd-trading" class="tab-pane active">${TAB_SECTION('Trading Floors &amp; Financial Workstations','Mission-critical trading desk systems designed for maximum screen real estate, cable management and operator comfort. Used by leading Swiss financial institutions.')}</div>
-  <div id="tp-cd-control" class="tab-pane">${TAB_SECTION('Control Rooms &amp; Dispatch Centres','Ergonomic control room consoles and dispatch furniture built for around-the-clock mission-critical operations. Tested for durability, flexibility and operator wellbeing.')}</div>
-  <div id="tp-cd-broadcast" class="tab-pane">${TAB_SECTION('Broadcast &amp; Studio Workstations','Custom production desks and studio furniture for broadcast environments — combining acoustic awareness with precise integration of broadcast technology.')}</div>
+  <div id="tp-cd-trading" class="tab-pane active" data-group="tg-cd">${TAB_SECTION('Trading Floors &amp; Financial Workstations','Mission-critical trading desk systems designed for maximum screen real estate, cable management and operator comfort. Used by leading Swiss financial institutions.')}</div>
+  <div id="tp-cd-control" class="tab-pane" data-group="tg-cd">${TAB_SECTION('Control Rooms &amp; Dispatch Centres','Ergonomic control room consoles and dispatch furniture built for around-the-clock mission-critical operations. Tested for durability, flexibility and operator wellbeing.')}</div>
+  <div id="tp-cd-broadcast" class="tab-pane" data-group="tg-cd">${TAB_SECTION('Broadcast &amp; Studio Workstations','Custom production desks and studio furniture for broadcast environments — combining acoustic awareness with precise integration of broadcast technology.')}</div>
   ${CASES()}
   ${FT()}`,
 
@@ -724,9 +724,9 @@ const P = {
     <button class="tab-btn" onclick="switchTab('tg-ty',this,'tp-ty-nook','Talky Nook')">Talky Nook</button>
     <button class="tab-btn" onclick="switchTab('tg-ty',this,'tp-ty-family','Talky Family &amp; AddOns')">Talky Family &amp; AddOns</button>
   </div></div></div>
-  <div id="tp-ty-talky" class="tab-pane active">${TAB_SECTION('Talky','The original Talky meeting pod — a self-contained, acoustically sealed room for focused work and private meetings. Available in multiple configurations.')}</div>
-  <div id="tp-ty-nook" class="tab-pane">${TAB_SECTION('Talky Nook','A compact open nook for individual focus work — semi-enclosed, acoustically treated, and designed to integrate seamlessly into open-plan offices.')}</div>
-  <div id="tp-ty-family" class="tab-pane">${TAB_SECTION('Talky Family &amp; AddOns','The full Talky Village ecosystem — modular pods, connecting elements, and AddOns that let you build a complete flexible work village within any space.')}</div>
+  <div id="tp-ty-talky" class="tab-pane active" data-group="tg-ty">${TAB_SECTION('Talky','The original Talky meeting pod — a self-contained, acoustically sealed room for focused work and private meetings. Available in multiple configurations.')}</div>
+  <div id="tp-ty-nook" class="tab-pane" data-group="tg-ty">${TAB_SECTION('Talky Nook','A compact open nook for individual focus work — semi-enclosed, acoustically treated, and designed to integrate seamlessly into open-plan offices.')}</div>
+  <div id="tp-ty-family" class="tab-pane" data-group="tg-ty">${TAB_SECTION('Talky Family &amp; AddOns','The full Talky Village ecosystem — modular pods, connecting elements, and AddOns that let you build a complete flexible work village within any space.')}</div>
   ${CASES()}
   ${FT()}`,
 
