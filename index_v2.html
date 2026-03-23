@@ -140,7 +140,7 @@ ul, ol { list-style: none; }
 .tab-pane.active { display: block; }
 
 /* ── CONTENT SECTION ── */
-.cs-wrap { max-width: 1290px; margin: 0 auto; height: 840px; position: relative; }
+.cs-wrap { max-width: 1290px; margin: 0 auto; height: 840px; position: relative; overflow: hidden; }
 .cs-grid { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 8px; padding: 40px 40px 0; height: 100%; }
 .cs-text { grid-column: 1 / span 4; display: flex; flex-direction: column; align-items: flex-start; }
 .cs-h2 { font-size: 48px; color: #000; line-height: 1.2; margin-bottom: 40px; }
@@ -148,7 +148,7 @@ ul, ol { list-style: none; }
 .cs-link { display: flex; align-items: center; gap: 12px; font-size: 16px; color: #000; cursor: pointer; transition: opacity .15s; }
 .cs-link:hover { opacity: .65; }
 .cs-img-tall { grid-column: 10 / span 3; align-self: flex-start; }
-.cs-img-wide { grid-column: 5 / span 4; align-self: start; }
+.cs-img-wide { grid-column: 5 / span 4; align-self: end; }
 .fig-img { position: relative; overflow: hidden; }
 .fig-img img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; max-width: none; }
 .fig-img .desat { position: absolute; inset: 0; background: white; mix-blend-mode: saturation; pointer-events: none; }
