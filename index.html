@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erich Keller AG — Prototypes</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: #f5f5f3;
+  color: #111;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+header {
+  padding: 48px 48px 0;
+}
+
+.wordmark {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #888;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 64px 48px;
+  max-width: 760px;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 56px;
+}
+
+.prototype-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border-top: 1px solid #ddd;
+}
+
+.prototype-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  border-bottom: 1px solid #ddd;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s;
+}
+
+.prototype-item:hover .item-label {
+  opacity: 0.5;
+}
+
+.prototype-item:hover .arrow {
+  transform: translateX(4px);
+}
+
+.item-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.item-label {
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  transition: opacity 0.15s;
+}
+
+.item-desc {
+  font-size: 12px;
+  color: #888;
+  letter-spacing: 0.02em;
+}
+
+.arrow {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  transition: transform 0.15s;
+  opacity: 0.4;
+}
+
+footer {
+  padding: 32px 48px;
+  font-size: 11px;
+  color: #bbb;
+  letter-spacing: 0.04em;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wordmark">Erich Keller AG</div>
+</header>
+
+<main>
+  <h1>Prototype Index</h1>
+  <p class="subtitle">Select a prototype to preview</p>
+
+  <nav class="prototype-list">
+
+    <a class="prototype-item" href="index_v1.html">
+      <div class="item-meta">
+        <span class="item-label">Version 1</span>
+        <span class="item-desc">index_v1.html</span>
+      </div>
+      <svg class="arrow" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 9h10M9 4.5L13.5 9 9 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
+    <a class="prototype-item" href="index_v2.html">
+      <div class="item-meta">
+        <span class="item-label">Version 2</span>
+        <span class="item-desc">index_v2.html</span>
+      </div>
+      <svg class="arrow" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 9h10M9 4.5L13.5 9 9 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
+    <a class="prototype-item" href="index_ek.html">
+      <div class="item-meta">
+        <span class="item-label">EK Nav</span>
+        <span class="item-desc">index_ek.html</span>
+      </div>
+      <svg class="arrow" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 9h10M9 4.5L13.5 9 9 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
+  </nav>
+</main>
+
+<footer>Erich Keller AG &mdash; Design Prototype Review</footer>
+
+</body>
+</html>
