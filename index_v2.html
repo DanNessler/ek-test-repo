@@ -260,14 +260,13 @@ ul, ol { list-style: none; }
         <span class="label">Interior Solutions</span>
         <svg class="chev" viewBox="0 0 10 6" fill="none"><path d="M0.8 0.8L5 5L9.2 0.8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <button class="nav-btn" id="nb-climate" onclick="toggleFlyout('climate')">
-        <span class="label">Climate Control Systems</span>
-        <svg class="chev" viewBox="0 0 10 6" fill="none"><path d="M0.8 0.8L5 5L9.2 0.8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <button class="nav-btn" id="nb-spaces" onclick="closeFlyout();go('spaces')">
+        <span class="label">Spaces</span>
       </button>
     </div>
   </div>
   <button class="nav-btn" id="nb-about" onclick="toggleFlyout('about')">
-    <span class="label">About EK</span>
+    <span class="label">Inside Erich Keller</span>
     <svg class="chev" viewBox="0 0 10 6" fill="none"><path d="M0.8 0.8L5 5L9.2 0.8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
 </div>
@@ -282,14 +281,13 @@ ul, ol { list-style: none; }
           <span class="label">Interior Solutions</span>
           <svg class="chev" viewBox="0 0 10 6" fill="none"><path d="M0.8 0.8L5 5L9.2 0.8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <button class="fnav-btn" id="fn-climate" onclick="switchFP('climate')">
-          <span class="label">Climate Control Systems</span>
-          <svg class="chev" viewBox="0 0 10 6" fill="none"><path d="M0.8 0.8L5 5L9.2 0.8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <button class="fnav-btn" id="fn-spaces" onclick="closeFlyout();go('spaces')">
+          <span class="label">Spaces</span>
         </button>
       </div>
     </div>
     <button class="fnav-btn" id="fn-about" onclick="switchFP('about')">
-      <span class="label">About EK</span>
+      <span class="label">Inside Erich Keller</span>
       <svg class="chev" viewBox="0 0 10 6" fill="none"><path d="M0.8 0.8L5 5L9.2 0.8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
   </div>
@@ -310,7 +308,7 @@ ul, ol { list-style: none; }
           </div>
         </div>
         <div class="fp-col-4">
-          <div class="fp-title">Comm &amp; Control Desks</div>
+          <div class="fp-title">Communication &amp; Control Desks</div>
           <div class="fp-desc">High-end Communication desk solutions for the most demanding business requirements and work spaces.</div>
           <button class="fp-overview" onclick="closeFlyout();go('comm-desks')"><span class="arr arr--w"></span> Overview</button>
           <hr class="fp-divider">
@@ -332,57 +330,21 @@ ul, ol { list-style: none; }
             <button class="fp-link" onclick="closeFlyout();goTab('talky','tg-ty',2,'tp-ty-family','Talky AddOns','Talky AddOns','Interior Solutions','interior-solutions')"><span class="arr arr--w"></span> Talky AddOns</button>
           </div>
         </div>
+        <div class="fp-col-4">
+          <div class="fp-title">Climate Control Solutions</div>
+          <div class="fp-desc">Sophisticated Climate Control Solutions for buildings, rooms, work stations and server infrastructure.</div>
+          <button class="fp-overview" onclick="closeFlyout();go('climate-control')"><span class="arr arr--w"></span> Overview</button>
+          <hr class="fp-divider">
+          <div class="fp-links">
+            <button class="fp-link" onclick="closeFlyout();go('climate-building')"><span class="arr arr--w"></span> Overall Building Climate Solutions</button>
+            <button class="fp-link" onclick="closeFlyout();go('climate-room')"><span class="arr arr--w"></span> Room Climate Solutions</button>
+            <button class="fp-link" onclick="closeFlyout();go('climate-workstation')"><span class="arr arr--w"></span> Work-Station Climate Solutions</button>
+            <button class="fp-link" onclick="closeFlyout();go('climate-server')"><span class="arr arr--w"></span> Server Room Climate Solutions</button>
+          </div>
+        </div>
       </div>
       <div class="fp-bottom">
         <button class="fp-bottom-link" onclick="closeFlyout();go('interior-solutions')"><span class="arr arr--w"></span> Interior Solutions Overview</button>
-      </div>
-    </div>
-
-    <!-- CLIMATE CONTROL flyout -->
-    <div class="fp" id="fp-climate">
-      <div class="fp-grid">
-        <div class="fp-col-3">
-          <div class="fp-title">Overall Building Climate Solutions</div>
-          <div class="fp-desc">Climate Solutions for your entire building.</div>
-          <button class="fp-overview" onclick="closeFlyout();go('climate-building')"><span class="arr arr--w"></span> Overview</button>
-          <hr class="fp-divider">
-          <div class="fp-links">
-            <button class="fp-link" onclick="closeFlyout();go('climate-building-rio-therm')"><span class="arr arr--w"></span> Rio-Therm</button>
-            <button class="fp-link" onclick="closeFlyout();go('climate-building-concept')"><span class="arr arr--w"></span> Overall Concept</button>
-          </div>
-        </div>
-        <div class="fp-col-3">
-          <div class="fp-title">Room and Floor Climate Solutions</div>
-          <div class="fp-desc">Climate Solutions for your offices and work spaces.</div>
-          <button class="fp-overview" onclick="closeFlyout();go('climate-room')"><span class="arr arr--w"></span> Overview</button>
-          <hr class="fp-divider">
-          <div class="fp-links">
-            <button class="fp-link" onclick="closeFlyout();go('climate-room-connector-fan')"><span class="arr arr--w"></span> Connector Fan</button>
-          </div>
-        </div>
-        <div class="fp-col-3">
-          <div class="fp-title">Work-Station Climate Solutions</div>
-          <div class="fp-desc">Climate Solutions for your work stations.</div>
-          <button class="fp-overview" onclick="closeFlyout();go('climate-workstation')"><span class="arr arr--w"></span> Overview</button>
-          <hr class="fp-divider">
-          <div class="fp-links">
-            <button class="fp-link" onclick="closeFlyout();go('climate-workstation-cool-top')"><span class="arr arr--w"></span> Cool-Top</button>
-            <button class="fp-link" onclick="closeFlyout();go('climate-workstation-steri-pac')"><span class="arr arr--w"></span> Steri-Pac</button>
-          </div>
-        </div>
-        <div class="fp-col-3">
-          <div class="fp-title">Server Room Climate Solutions</div>
-          <div class="fp-desc">Climate Solutions for your server rooms and infrastructure.</div>
-          <button class="fp-overview" onclick="closeFlyout();go('climate-server')"><span class="arr arr--w"></span> Overview</button>
-          <hr class="fp-divider">
-          <div class="fp-links">
-            <button class="fp-link" onclick="closeFlyout();go('climate-server-top-rack')"><span class="arr arr--w"></span> Top Rack</button>
-            <button class="fp-link" onclick="closeFlyout();go('climate-server-top-cooler')"><span class="arr arr--w"></span> Top-Cooler</button>
-          </div>
-        </div>
-      </div>
-      <div class="fp-bottom">
-        <button class="fp-bottom-link" onclick="closeFlyout();go('climate-control')"><span class="arr arr--w"></span> Climate Control Systems Overview</button>
       </div>
     </div>
 
